@@ -13,7 +13,7 @@ class BulmaFormStyle(FormStyle):
         return validator.options(), validator.multiple
 
     @staticmethod
-    def widget_string(attr, field, value, _class="xstring", _id=None):
+    def widget_string(attr, field, value, _class="input", _id=None):
         return tag.input(
             _type="text",
             _name=field.name,
@@ -23,7 +23,7 @@ class BulmaFormStyle(FormStyle):
         )
 
     @staticmethod
-    def widget_text(attr, field, value, _class="xtext", _id=None):
+    def widget_text(attr, field, value, _class="textarea", _id=None):
         return tag.textarea(
             value or "",
             _name=field.name,
@@ -32,31 +32,31 @@ class BulmaFormStyle(FormStyle):
         )
 
     @staticmethod
-    def widget_int(attr, field, value, _class="xint", _id=None):
+    def widget_int(attr, field, value, _class="input", _id=None):
         return FormStyle.widget_string(attr, field, value, _class, _id)
 
     @staticmethod
-    def widget_bigint(attr, field, value, _class="xint", _id=None):
+    def widget_bigint(attr, field, value, _class="input", _id=None):
         return FormStyle.widget_string(attr, field, value, _class, _id)
 
     @staticmethod
-    def widget_float(attr, field, value, _class="xfloat", _id=None):
+    def widget_float(attr, field, value, _class="input", _id=None):
         return FormStyle.widget_string(attr, field, value, _class, _id)
 
     @staticmethod
-    def widget_date(attr, field, value, _class="xdate", _id=None):
+    def widget_date(attr, field, value, _class="date", _id=None):
         return FormStyle.widget_string(attr, field, value, _class, _id)
 
     @staticmethod
-    def widget_time(attr, field, value, _class="xtime", _id=None):
+    def widget_time(attr, field, value, _class="time", _id=None):
         return FormStyle.widget_string(attr, field, value, _class, _id)
 
     @staticmethod
-    def widget_datetime(attr, field, value, _class="xdatetime", _id=None):
+    def widget_datetime(attr, field, value, _class="datetime", _id=None):
         return FormStyle.widget_string(attr, field, value, _class, _id)
 
     @staticmethod
-    def widget_password(attr, field, value, _class="xpassword", _id=None):
+    def widget_password(attr, field, value, _class="input", _id=None):
         return tag.input(
             _type="password",
             _name=field.name,
@@ -66,7 +66,7 @@ class BulmaFormStyle(FormStyle):
         )
 
     @staticmethod
-    def widget_bool(attr, field, value, _class="xbool", _id=None):
+    def widget_bool(attr, field, value, _class="bool", _id=None):
         return tag.input(
             _type="checkbox",
             _name=field.name,
@@ -76,7 +76,7 @@ class BulmaFormStyle(FormStyle):
         )
 
     @staticmethod
-    def widget_select(attr, field, value, _class="x", _id=None):
+    def widget_select(attr, field, value, _class="select", _id=None):
         def selected(k):
             return "selected" if str(value) == str(k) else None
 
@@ -95,7 +95,7 @@ class BulmaFormStyle(FormStyle):
         )
 
     @staticmethod
-    def widget_multiple(attr, field, values, options, _class="x", _id=None):
+    def widget_multiple(attr, field, values, options, _class="select", _id=None):
         def selected(k):
             return "selected" if str(k) in [str(v) for v in values] else None
 
@@ -110,13 +110,8 @@ class BulmaFormStyle(FormStyle):
             _id=_id or field.name
         )
 
-    #: TO-DO
-    # @staticmethod
-    # def widget_list(attr, field, value, _class="x", _id=None):
-    #    return ""
-
     @staticmethod
-    def widget_upload(attr, field, value, _class="xupload", _id=None):
+    def widget_upload(attr, field, value, _class="upload", _id=None):
         def is_image(value):
             return value.split(".")[-1].lower() in ["gif", "png", "jpg", "jpeg", "bmp"]
 
@@ -155,12 +150,12 @@ class BulmaFormStyle(FormStyle):
                         tag.label(
                             "delete",
                             _for=_id + "__del",
-                            _style="margin: 4px"
+                            _class="file-label"
                         ),
-                        _style="white-space: nowrap;"
+                        _class="file"
                     )
                 )
-        return tag.div(*elements, _class="xupload_wrap")
+        return tag.div(*elements, _class="file")
 
     @staticmethod
     def widget_json(attr, field, value, _id=None):
@@ -262,13 +257,13 @@ class BulmaFormStyle(FormStyle):
         pass
 
     def create_label(self, label):
-        return tag.label(label, _for=self.element.widget["_id"], _class="xemt_label")
+        return tag.label(label, _for=self.element.widget["_id"], _class="label")
 
     def create_error(self, error):
-        return tag.div(error, _class="xemt_error")
+        return tag.div(error, _class="emt_error")
 
     def create_comment(self, comment):
-        return tag.p(comment, _class="xemt_help")
+        return tag.p(comment, _class="emt_help")
 
     def add_widget(self, widget):
         wrapper = tag.div(widget)
